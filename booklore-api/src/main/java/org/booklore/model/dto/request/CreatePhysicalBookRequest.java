@@ -25,6 +25,8 @@ public class CreatePhysicalBookRequest {
     private String publisher;
     private String publishedDate;
     private String language;
+    private Integer grade;
+    private String subject;
     private Integer pageCount;
     private List<String> categories;
 }

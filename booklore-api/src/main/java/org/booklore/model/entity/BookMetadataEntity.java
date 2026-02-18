@@ -61,6 +61,12 @@ public class BookMetadataEntity {
     @Column(name = "language", length = 10)
     private String language;
 
+    @Column(name = "grade")
+    private Integer grade;
+
+    @Column(name = "subject")
+    private String subject;
+
     @Column(name = "rating")
     private Double rating;
 

@@ -164,6 +164,8 @@ export interface BookMetadata {
   googleId?: string;
   pageCount?: number | null;
   language?: string;
+  grade?: number | null;
+  subject?: string;
   rating?: number | null;
   reviewCount?: number | null;
   amazonRating?: number | null;
@@ -409,6 +411,8 @@ export interface CreatePhysicalBookRequest {
   publisher?: string;
   publishedDate?: string;
   language?: string;
+  grade?: number;
+  subject?: string;
   pageCount?: number;
   categories?: string[];
 }

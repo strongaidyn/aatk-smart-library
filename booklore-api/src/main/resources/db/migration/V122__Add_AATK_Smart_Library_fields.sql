@@ -1,0 +1,3 @@
+ALTER TABLE book_metadata
+ADD COLUMN grade INT,
+ADD COLUMN subject VARCHAR(255);

@@ -58,6 +58,8 @@ public class PhysicalBookService {
                 .publisher(request.getPublisher())
                 .publishedDate(parsePublishedDate(request.getPublishedDate()))
                 .language(request.getLanguage())
+                .grade(request.getGrade())
+                .subject(request.getSubject())
                 .pageCount(request.getPageCount())
                 .isbn13(extractIsbn13(request.getIsbn()))
                 .isbn10(extractIsbn10(request.getIsbn()))

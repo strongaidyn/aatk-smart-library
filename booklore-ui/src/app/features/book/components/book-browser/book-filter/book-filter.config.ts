@@ -22,6 +22,7 @@ export type FilterType =
   | 'goodreadsRating' | 'hardcoverRating' | 'language' | 'pageCount' | 'mood'
   | 'ageRating' | 'contentRating'
   | 'narrator'
+  | 'grade' | 'subject'
   | 'comicCharacter' | 'comicTeam' | 'comicLocation' | 'comicCreator';
 
 export type SortMode = 'count' | 'sortIndex';
@@ -133,7 +134,7 @@ export const matchScoreRanges = MATCH_SCORE_RANGES;
 export const NUMERIC_ID_FILTER_TYPES = new Set<FilterType>([
   'personalRating', 'matchScore', 'fileSize', 'amazonRating',
   'goodreadsRating', 'hardcoverRating', 'pageCount', 'library', 'shelf',
-  'ageRating'
+  'ageRating', 'grade'
 ]);
 
 export const FILTER_LABELS: Readonly<Record<FilterType, string>> = {
@@ -155,6 +156,8 @@ export const FILTER_LABELS: Readonly<Record<FilterType, string>> = {
   goodreadsRating: 'Goodreads Rating',
   hardcoverRating: 'Hardcover Rating',
   language: 'Language',
+  grade: 'Grade',
+  subject: 'Subject',
   pageCount: 'Page Count',
   mood: 'Mood',
   ageRating: 'Age Rating',
@@ -229,6 +232,12 @@ export const FILTER_EXTRACTORS: Readonly<Record<Exclude<FilterType, 'library'>, 
   goodreadsRating: (book) => findInRange(book.metadata?.goodreadsRating, RATING_RANGES_5),
   hardcoverRating: (book) => findInRange(book.metadata?.hardcoverRating, RATING_RANGES_5),
   language: (book) => extractSingleString(book.metadata?.language),
+  grade: (book) => {
+    const g = book.metadata?.grade;
+    if (g == null) return [];
+    return [{id: g, name: `${g} класс`, sortIndex: g}];
+  },
+  subject: (book) => extractSingleString(book.metadata?.subject),
   pageCount: (book) => findInRange(book.metadata?.pageCount, PAGE_COUNT_RANGES),
   mood: (book) => extractStringsAsFilters(book.metadata?.moods),
   ageRating: (book) => findExactAgeRating(book.metadata?.ageRating),
@@ -289,6 +298,8 @@ export const FILTER_LABEL_KEYS: Readonly<Record<FilterType, string>> = {
   goodreadsRating: 'book.filter.labels.goodreadsRating',
   hardcoverRating: 'book.filter.labels.hardcoverRating',
   language: 'book.filter.labels.language',
+  grade: 'book.filter.labels.grade',
+  subject: 'book.filter.labels.subject',
   pageCount: 'book.filter.labels.pageCount',
   mood: 'book.filter.labels.mood',
   ageRating: 'book.filter.labels.ageRating',
@@ -352,6 +363,8 @@ export const FILTER_CONFIGS: Readonly<Record<Exclude<FilterType, 'library'>, Omi
   goodreadsRating: {label: 'Goodreads Rating', sortMode: 'sortIndex', isNumericId: true},
   hardcoverRating: {label: 'Hardcover Rating', sortMode: 'sortIndex', isNumericId: true},
   language: {label: 'Language', sortMode: 'count'},
+  grade: {label: 'Grade', sortMode: 'sortIndex', isNumericId: true},
+  subject: {label: 'Subject', sortMode: 'count'},
   pageCount: {label: 'Page Count', sortMode: 'sortIndex', isNumericId: true},
   mood: {label: 'Mood', sortMode: 'count'},
   ageRating: {label: 'Age Rating', sortMode: 'sortIndex', isNumericId: true},

@@ -1,0 +1,18 @@
+# =============================================================================
+# AATK Smart Library — Docker Compose Override
+# Place this file alongside the main docker-compose.yml in example-docker/
+# or copy both files to your working directory.
+# =============================================================================
+# Usage:
+#   cd example-docker
+#   cp ../docker-compose.override.yml .
+#   docker compose up -d
+# =============================================================================
+
+services:
+  booklore:
+    environment:
+      - SWAGGER_ENABLED=true   # Enable API docs for CSV import testing
+    volumes:
+      - ../data.csv:/app/data.csv:ro               # Mount the CSV file for import
+      - ../scripts:/app/scripts:ro                  # Mount import scripts

@@ -29,6 +29,8 @@ public class BookMetadata {
     private String isbn10;
     private Integer pageCount;
     private String language;
+    private Integer grade;
+    private String subject;
     private String narrator;
     private Boolean abridged;
 

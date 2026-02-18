@@ -115,6 +115,13 @@ export function doesBookMatchFilter(
       return filterValues.some(range => isRatingInRange(book.metadata?.hardcoverRating, range as string | number));
     case 'language':
       return filterValues.includes(book.metadata?.language);
+    case 'grade':
+      return filterValues.some(val => {
+        const numVal = typeof val === 'string' ? Number(val) : val;
+        return book.metadata?.grade === numVal;
+      });
+    case 'subject':
+      return filterValues.includes(book.metadata?.subject);
     case 'pageCount':
       return filterValues.some(range => isPageCountInRange(book.metadata?.pageCount!, range as string | number));
     case 'mood':
